@@ -1,7 +1,7 @@
 {
   "name": "@vamosdalian/gitgraph-monorepo",
   "private": true,
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A maintained fork of GitGraph.js",
   "license": "MIT",
   "repository": {
@@ -16,13 +16,14 @@
   "scripts": {
     "build": "npm run build -w @vamosdalian/gitgraph-core && npm run build -w @vamosdalian/gitgraph-js && npm run build -w @vamosdalian/gitgraph-react && npm run build -w @vamosdalian/gitgraph-node",
     "clean": "npm run clean --workspaces --if-present",
-    "format": "prettier --write README.md CONTRIBUTING.md package.json tsconfig.json jest.config.cjs eslint.config.mjs .github/workflows \"packages/gitgraph-*/package.json\" \"packages/gitgraph-*/tsconfig.json\" \"packages/gitgraph-*/rollup.config.mjs\" \"packages/gitgraph-*/README.md\" \"packages/gitgraph-*/src/**/*.{ts,tsx}\"",
-    "format:check": "prettier --check README.md CONTRIBUTING.md package.json tsconfig.json jest.config.cjs eslint.config.mjs .github/workflows \"packages/gitgraph-*/package.json\" \"packages/gitgraph-*/tsconfig.json\" \"packages/gitgraph-*/rollup.config.mjs\" \"packages/gitgraph-*/README.md\" \"packages/gitgraph-*/src/**/*.{ts,tsx}\"",
+    "format": "prettier --write README.md CONTRIBUTING.md package.json tsconfig.json jest.config.cjs eslint.config.mjs .github/workflows scripts \"packages/gitgraph-*/package.json\" \"packages/gitgraph-*/tsconfig.json\" \"packages/gitgraph-*/rollup.config.mjs\" \"packages/gitgraph-*/README.md\" \"packages/gitgraph-*/src/**/*.{ts,tsx}\"",
+    "format:check": "prettier --check README.md CONTRIBUTING.md package.json tsconfig.json jest.config.cjs eslint.config.mjs .github/workflows scripts \"packages/gitgraph-*/package.json\" \"packages/gitgraph-*/tsconfig.json\" \"packages/gitgraph-*/rollup.config.mjs\" \"packages/gitgraph-*/README.md\" \"packages/gitgraph-*/src/**/*.{ts,tsx}\"",
     "lint": "eslint packages/gitgraph-core/src packages/gitgraph-js/src packages/gitgraph-node/src packages/gitgraph-react/src --max-warnings 0",
     "pack:check": "npm pack --dry-run -w @vamosdalian/gitgraph-core && npm pack --dry-run -w @vamosdalian/gitgraph-js && npm pack --dry-run -w @vamosdalian/gitgraph-react && npm pack --dry-run -w @vamosdalian/gitgraph-node",
     "pretest": "npm run build",
     "test": "jest --runInBand",
-    "test:ci": "npm run lint && npm run format:check && npm test && npm run pack:check"
+    "test:ci": "npm run version:check && npm run lint && npm run format:check && npm test && npm run pack:check",
+    "version:check": "node scripts/check-workspace-versions.mjs"
   },
   "devDependencies": {
     "@eslint/js": "9.39.5",
