@@ -1,7 +1,7 @@
-# `@gitgraph/react`
+# `@vamosdalian/gitgraph-react`
 
-[![version](https://img.shields.io/npm/v/@gitgraph/react.svg?logo=npm)](https://www.npmjs.com/package/@gitgraph/react)
-[![Changelog](https://img.shields.io/badge/%F0%9F%93%94-changelog-CD9523.svg)](https://github.com/nicoespeon/gitgraph.js/blob/master/packages/gitgraph-react/CHANGELOG.md)
+[![version](https://img.shields.io/npm/v/@vamosdalian/gitgraph-react.svg?logo=npm)](https://www.npmjs.com/package/@vamosdalian/gitgraph-react)
+[![Changelog](https://img.shields.io/badge/%F0%9F%93%94-changelog-CD9523.svg)](https://github.com/vamosdalian/gitgraph.js/blob/master/packages/gitgraph-react/CHANGELOG.md)
 
 Draw pretty git graphs with React.
 
@@ -11,12 +11,12 @@ Draw pretty git graphs with React.
 
 > You need to have [npm][get-npm] installed.
 
-Install the package with npm: `npm i --save @gitgraph/react`
+Install the package with npm: `npm i --save @vamosdalian/gitgraph-react`
 
 Now you can use the `<GitGraph>` component:
 
 ```jsx
-const { Gitgraph } = require("@gitgraph/react");
+const { Gitgraph } = require("@vamosdalian/gitgraph-react");
 
 function MyComponent() {
   return (
@@ -54,6 +54,6 @@ function MyComponent() {
 [A bunch of scenarios][stories] has been simulated in our Storybook. You can give them a look 👀
 
 [get-npm]: https://www.npmjs.com/get-npm
-[gitgraph-repo]: https://github.com/nicoespeon/gitgraph.js/
-[stories]: https://github.com/nicoespeon/gitgraph.js/tree/master/packages/stories/src/gitgraph-react/
-[assets-example]: https://github.com/nicoespeon/gitgraph.js/blob/master/packages/gitgraph-react/assets/example-usage.png?raw=true
+[gitgraph-repo]: https://github.com/vamosdalian/gitgraph.js/
+[stories]: https://github.com/vamosdalian/gitgraph.js/tree/master/packages/stories/src/gitgraph-react/
+[assets-example]: https://github.com/vamosdalian/gitgraph.js/blob/master/packages/gitgraph-react/assets/example-usage.png?raw=true

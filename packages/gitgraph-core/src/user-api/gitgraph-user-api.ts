@@ -209,23 +209,22 @@ class GitgraphUserApi<TNode> {
       throw invalidData;
     }
 
-    const commitOptionsList: Array<
-      CommitOptions<TNode> & { refs: string[] }
-    > = data
-      .map((options) => ({
-        ...options,
-        style: {
-          ...this._graph.template.commit,
-          message: {
-            ...this._graph.template.commit.message,
-            display: this._graph.shouldDisplayCommitMessage,
+    const commitOptionsList: Array<CommitOptions<TNode> & { refs: string[] }> =
+      data
+        .map((options) => ({
+          ...options,
+          style: {
+            ...this._graph.template.commit,
+            message: {
+              ...this._graph.template.commit.message,
+              display: this._graph.shouldDisplayCommitMessage,
+            },
           },
-        },
-        author: `${options.author.name} <${options.author.email}>`,
-      }))
-      // Git2json outputs is reverse-chronological.
-      // We need to commit it chronological order.
-      .reverse();
+          author: `${options.author.name} <${options.author.email}>`,
+        }))
+        // Git2json outputs is reverse-chronological.
+        // We need to commit it chronological order.
+        .reverse();
 
     // Use validated `value`.
     this.clear();
@@ -243,7 +242,7 @@ class GitgraphUserApi<TNode> {
 
       const tags = refs
         .map((ref) => ref.split(TAG_PREFIX))
-        .map(([_, tag]) => tag)
+        .map(([, tag]) => tag)
         .filter((tag) => typeof tag === "string");
       tags.forEach((tag) => this._graph.tags.set(tag, hash));
 

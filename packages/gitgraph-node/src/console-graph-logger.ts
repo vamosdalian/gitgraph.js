@@ -1,14 +1,13 @@
 /* tslint:disable:no-console */
 import chalk from "chalk";
-import { startsWith } from "lodash";
 
-import { ILogGraph, GraphSymbol, GraphCommit } from "./compute-graph-map";
+import { ILogGraph, GraphSymbol, GraphCommit } from "./compute-graph-map/types";
 
 const consoleGraphLogger: ILogGraph = (graph) => {
   const lines = graph.map((line) =>
     line
       .map(({ value, color }) => {
-        const colored = startsWith(color, "#")
+        const colored = color.startsWith("#")
           ? chalk.hex(color)
           : chalk.keyword(color || "white");
 
@@ -28,7 +27,7 @@ const consoleGraphLogger: ILogGraph = (graph) => {
           case GraphSymbol.Commit:
             return colored("*");
 
-          default:
+          default: {
             const commit = value as GraphCommit;
             let text = ` ${colored(commit.hash)} `;
 
@@ -43,6 +42,7 @@ const consoleGraphLogger: ILogGraph = (graph) => {
             text += `${colored(commit.message)}`;
 
             return text;
+          }
         }
       })
       .join(""),

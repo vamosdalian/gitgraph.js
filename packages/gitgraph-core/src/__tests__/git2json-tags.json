@@ -1,20 +1,12 @@
 [
   {
-    "refs": [
-      "HEAD",
-      "master",
-      "tag: v1.0"
-    ],
+    "refs": ["HEAD", "master", "tag: v1.0"],
     "hash": "3cfdf08894ae0231520db5298ae4eb5a71a01f81",
     "hashAbbrev": "3cfdf08",
     "tree": "43b71c903ff52b9885bd36f3866324ef60e27b9b",
     "treeAbbrev": "43b71c9",
-    "parents": [
-      "51baced692316ff6ec60166e30e6880a8aaef88a"
-    ],
-    "parentsAbbrev": [
-      "51baced"
-    ],
+    "parents": ["51baced692316ff6ec60166e30e6880a8aaef88a"],
+    "parentsAbbrev": ["51baced"],
     "author": {
       "name": "fabien0102",
       "email": "fabien0102@planee.fr",

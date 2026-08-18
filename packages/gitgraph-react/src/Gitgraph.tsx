@@ -11,7 +11,7 @@ import {
   templateExtend,
   BranchesPaths,
   Coordinate,
-} from "@gitgraph/core";
+} from "@vamosdalian/gitgraph-core";
 
 import { BranchLabel } from "./BranchLabel";
 import { Tooltip } from "./Tooltip";
@@ -135,8 +135,9 @@ class Gitgraph extends React.Component<GitgraphProps, GitgraphState> {
   }
 
   public componentDidMount() {
-    if (isPropsWithGraph(this.props)) return;
-    this.props.children(this.gitgraph.getUserApi());
+    if ("children" in this.props) {
+      this.props.children(this.gitgraph.getUserApi());
+    }
   }
 
   public componentDidUpdate() {
@@ -210,9 +211,8 @@ class Gitgraph extends React.Component<GitgraphProps, GitgraphState> {
           10,
         );
 
-        const firstForeignObject = commit.getElementsByTagName(
-          "foreignObject",
-        )[0];
+        const firstForeignObject =
+          commit.getElementsByTagName("foreignObject")[0];
         const customHtmlMessage =
           firstForeignObject && firstForeignObject.firstElementChild;
 

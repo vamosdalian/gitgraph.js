@@ -1,16 +1,6 @@
-# Source code of Gitgraph.js website
+# Historical GitGraph.js website
 
-The website is generated from [mdx-deck][mdx-deck].
-
-Few commands available (with yarn):
-
-- `yarn start` to run the website locally
-- `yarn deploy` to deploy the website online
-
-## About dependencies versions
-
-For the moment, [it's not possible to embed both mdx-deck-code-surfer and mdx-deck-live-code](https://github.com/pomber/code-surfer/issues/49). Also, both libraries don't work well with mdx-deck v2.
-
-Thus, we decided to go with mdx-deck-code-surfer only, and mdx-deck v1.
-
-[mdx-deck]: https://github.com/jxnblk/mdx-deck/
+This directory is retained as an upstream documentation snapshot. It is not
+part of the maintained npm workspace, CI build, or publishing workflow. In
+particular, it no longer contains the upstream `gitgraphjs.com` CNAME or a
+deployment command.

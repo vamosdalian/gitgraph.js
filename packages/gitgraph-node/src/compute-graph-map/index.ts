@@ -1,33 +1,17 @@
-import { GitgraphCore, Commit } from "@gitgraph/core";
-import { flow, fill, includes, range } from "lodash";
-import { unzip } from "lodash/fp";
+import { GitgraphCore, Commit } from "@vamosdalian/gitgraph-core";
 
 import connectBranchCommits from "./connect-branch-commits";
+import { GraphLine, GraphMap, GraphSymbol } from "./types";
+
+export {
+  GraphCommit,
+  GraphLine,
+  GraphMap,
+  GraphSymbol,
+  ILogGraph,
+} from "./types";
 
 export default computeGraphMap;
-
-export interface GraphCommit {
-  hash: string;
-  message: string;
-  refs: string[];
-}
-export enum GraphSymbol {
-  // Use string values to ease testing & debugging.
-  // e.g. `GraphSymbol.Commit === "*"` in tests
-  Commit = "*",
-  Empty = " ",
-  Branch = "|",
-  BranchOpen = "\\",
-  BranchMerge = "/",
-}
-interface GraphCell {
-  value: GraphSymbol | GraphCommit;
-  color: string;
-}
-export type GraphLine = GraphCell[];
-export type GraphMap = GraphLine[];
-
-export type ILogGraph = (graph: GraphMap) => void;
 
 // Translate rendered data into CLI logic.
 //
@@ -35,11 +19,8 @@ export type ILogGraph = (graph: GraphMap) => void;
 // Rendering is a bit different in CLI since we don't have pixels.
 // Thus, we should translate data to have "line-per-line" instructions.
 function computeGraphMap(gitgraph: GitgraphCore): GraphMap {
-  const {
-    branchesPaths,
-    commits,
-    commitMessagesX,
-  } = gitgraph.getRenderedData();
+  const { branchesPaths, commits, commitMessagesX } =
+    gitgraph.getRenderedData();
   const branchesColors = Array.from(branchesPaths).map(
     ([branch]) => branch.computedColor!,
   );
@@ -67,7 +48,7 @@ function computeGraphMap(gitgraph: GitgraphCore): GraphMap {
     };
 
     const previousCommit = commits[index - 1];
-    const isFirstCommitOfNewBranch = !includes(openedBranches, commit.x);
+    const isFirstCommitOfNewBranch = !openedBranches.includes(commit.x);
     if (isFirstCommitOfNewBranch) {
       graph = graph.concat(openBranchLines(previousCommit, commit));
       openedBranches.push(commit.x);
@@ -81,30 +62,29 @@ function computeGraphMap(gitgraph: GitgraphCore): GraphMap {
     graph.push(graphLine);
   });
 
-  return flow<GraphMap, GraphMap, GraphMap, GraphMap>(
-    // Transpose the graph so columns => lines (easier to map).
-    unzip,
-    (transposedGraph) =>
-      transposedGraph.map((line, index) =>
-        connectBranchCommits(branchColorFor(index), line),
-      ),
-    // Transpose again to return the proper graph.
-    unzip,
-  )(graph);
+  // Transpose the graph so columns become lines, connect each branch, then
+  // transpose it back to the line-oriented representation used by the logger.
+  const transposedGraph = transpose(graph).map((line, index) =>
+    connectBranchCommits(branchColorFor(index), line),
+  );
+  return transpose(transposedGraph);
 
   function xToIndex(x: number): number {
     return (x / branchSpacing) * 2;
   }
 
   function emptyLine(): GraphLine {
-    return fill(Array(graphSize), { value: GraphSymbol.Empty, color: "" });
+    return Array.from({ length: graphSize }, () => ({
+      value: GraphSymbol.Empty,
+      color: "",
+    }));
   }
 
   function openBranchLines(origin: Commit, target: Commit): GraphLine[] {
     const start = xToIndex(origin.x) + 1;
     const end = xToIndex(target.x);
 
-    return range(start, end).map((index) => {
+    return numberRange(start, end).map((index) => {
       const line = emptyLine();
       line[index] = {
         value: GraphSymbol.BranchOpen,
@@ -118,7 +98,7 @@ function computeGraphMap(gitgraph: GitgraphCore): GraphMap {
     const start = xToIndex(origin.x) - 1;
     const end = xToIndex(target.x);
 
-    return range(start, end, -1).map((index) => {
+    return numberRange(start, end, -1).map((index) => {
       const line = emptyLine();
       line[index] = {
         value: GraphSymbol.BranchMerge,
@@ -132,4 +112,22 @@ function computeGraphMap(gitgraph: GitgraphCore): GraphMap {
     const colorIndex = Math.ceil(branchCommitsIndex / 2);
     return branchesColors[colorIndex];
   }
+}
+
+function transpose<T>(rows: T[][]): T[][] {
+  if (rows.length === 0) return [];
+
+  return rows[0].map((_, columnIndex) => rows.map((row) => row[columnIndex]));
+}
+
+function numberRange(start: number, end: number, step = 1): number[] {
+  const values: number[] = [];
+
+  if (step > 0) {
+    for (let value = start; value < end; value += step) values.push(value);
+  } else {
+    for (let value = start; value > end; value += step) values.push(value);
+  }
+
+  return values;
 }

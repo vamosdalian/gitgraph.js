@@ -1,7 +1,7 @@
-# `@gitgraph/core`
+# `@vamosdalian/gitgraph-core`
 
-[![version](https://img.shields.io/npm/v/@gitgraph/core.svg?logo=npm)](https://www.npmjs.com/package/@gitgraph/core)
-[![Changelog](https://img.shields.io/badge/%F0%9F%93%94-changelog-CD9523.svg)](https://github.com/nicoespeon/gitgraph.js/blob/master/packages/gitgraph-core/CHANGELOG.md)
+[![version](https://img.shields.io/npm/v/@vamosdalian/gitgraph-core.svg?logo=npm)](https://www.npmjs.com/package/@vamosdalian/gitgraph-core)
+[![Changelog](https://img.shields.io/badge/%F0%9F%93%94-changelog-CD9523.svg)](https://github.com/vamosdalian/gitgraph.js/blob/master/packages/gitgraph-core/CHANGELOG.md)
 
 This is the core package of [GitGraph.js][gitgraph-repo]. It contains the main logic for manipulating git-like API and compute the graph that should be rendered.
 
@@ -19,7 +19,7 @@ All the GitGraph.js API is defined there: commit, branch, merge, etc. It embrace
 
 ## Developing a rendering library
 
-A rendering library is a wrapper around `@gitgraph/core`.
+A rendering library is a wrapper around `@vamosdalian/gitgraph-core`.
 
 It should:
 
@@ -33,7 +33,7 @@ How it renders the graph is up to you (e.g. canvas, svg, HTML elements…).
 A vanilla JS implementation:
 
 ```js
-import { GitgraphCore } from "@gitgraph/core";
+import { GitgraphCore } from "@vamosdalian/gitgraph-core";
 
 export function createGitgraph(options) {
   const $target = options.$target || document.getElementId("#gitgraph");
@@ -64,7 +64,7 @@ A React implementation:
 
 ```jsx
 import React from "react";
-import { GitgraphCore } from "@gitgraph/core";
+import { GitgraphCore } from "@vamosdalian/gitgraph-core";
 
 export class Gitgraph extends React.Component {
   constructor(props) {
@@ -101,4 +101,4 @@ The end-user will be using the rendering library. As we return `gitgraph.getUser
 
 Every action updates the internal graph. The core library computes the new graph that should be rendered to represent the new state. When it does, it will call its listeners through the `subscribe()` method.
 
-[gitgraph-repo]: https://github.com/nicoespeon/gitgraph.js/
+[gitgraph-repo]: https://github.com/vamosdalian/gitgraph.js/

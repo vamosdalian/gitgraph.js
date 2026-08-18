@@ -1,65 +1,64 @@
 {
-  "name": "@gitgraph/react",
+  "name": "@vamosdalian/gitgraph-react",
   "version": "1.6.0",
-  "description": "Draw pretty git graphs in the browser, with React",
-  "author": "Nicolas Carlo <nicolascarlo.espeon@gmail.com>",
-  "contributors": [
-    {
-      "name": "Fabien Bernard",
-      "email": "fabien0102@gmail.com"
-    }
-  ],
+  "description": "Render Git graphs with React",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nicoespeon/gitgraph.js.git"
+    "url": "git+https://github.com/vamosdalian/gitgraph.js.git",
+    "directory": "packages/gitgraph-react"
   },
   "bugs": {
-    "url": "https://github.com/nicoespeon/gitgraph.js/issues"
+    "url": "https://github.com/vamosdalian/gitgraph.js/issues"
   },
+  "homepage": "https://github.com/vamosdalian/gitgraph.js/tree/master/packages/gitgraph-react#readme",
   "keywords": [
     "react",
     "git",
     "graph",
     "javascript"
   ],
-  "homepage": "https://github.com/nicoespeon/gitgraph.js#readme",
-  "publishConfig": {
-    "access": "public"
+  "type": "module",
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.mjs",
+  "browser": "./lib/bundle.umd.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.cjs"
+    }
   },
-  "main": "./lib/bundle.umd.js",
-  "module": "./lib/index.js",
-  "jsnext:main": "./lib/index.js",
-  "typings": "./lib/index.d.ts",
+  "files": [
+    "lib",
+    "CHANGELOG.md",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true,
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
-    "prewatch": "rimraf ./lib",
-    "watch": "tsc -w",
-    "build": "run-s build:*",
-    "build:clear": "rimraf ./lib",
-    "build:tsc": "tsc",
-    "build:bundle": "rollup -c rollup.config.js",
-    "build:browserify": "browserify ./lib/bundle.umd.js -o ./lib/bundle.js",
-    "build:minify": "uglifyjs -c -m -o ./lib/bundle.min.js -- ./lib/bundle.js",
-    "prepare": "npm run build",
-    "version": "auto-changelog -p -l 0 --tag-prefix @gitgraph/react@ && git add CHANGELOG.md"
+    "build": "npm run clean && tsc -p tsconfig.json && rollup -c rollup.config.mjs",
+    "clean": "rimraf lib",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@gitgraph/core": "1.5.0"
+    "@vamosdalian/gitgraph-core": "1.5.0"
   },
   "peerDependencies": {
-    "react": ">= 16.8.0"
+    "react": ">=18.0.0 <20.0.0"
   },
   "devDependencies": {
-    "@types/node": "9.4.6",
-    "@types/react": "16.8.8",
-    "@types/react-dom": "16.8.3",
-    "auto-changelog": "1.12.1",
-    "browserify": "14.5.0",
-    "npm-run-all": "4.1.2",
-    "react": "16.8.4",
-    "react-dom": "16.8.4",
-    "rimraf": "2.6.2",
-    "rollup": "0.51.8",
-    "uglify-es": "3.3.9"
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   }
 }

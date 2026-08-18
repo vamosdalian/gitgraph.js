@@ -184,7 +184,7 @@ class Commit<TNode = SVGElement> {
     let name, email;
     try {
       [, name, email] = options.author.match(/(.*) <(.*)>/) as RegExpExecArray;
-    } catch (e) {
+    } catch {
       [name, email] = [options.author, ""];
     }
     this.author = { name, email, timestamp: Date.now() };

@@ -1,9 +1,9 @@
 **❗ This rendering library is still under development and is not stable.**
 
-# `@gitgraph/node`
+# `@vamosdalian/gitgraph-node`
 
-[![version](https://img.shields.io/npm/v/@gitgraph/node.svg?logo=npm)](https://www.npmjs.com/package/@gitgraph/node)
-[![Changelog](https://img.shields.io/badge/%F0%9F%93%94-changelog-CD9523.svg)](https://github.com/nicoespeon/gitgraph.js/blob/master/packages/gitgraph-node/CHANGELOG.md)
+[![version](https://img.shields.io/npm/v/@vamosdalian/gitgraph-node.svg?logo=npm)](https://www.npmjs.com/package/@vamosdalian/gitgraph-node)
+[![Changelog](https://img.shields.io/badge/%F0%9F%93%94-changelog-CD9523.svg)](https://github.com/vamosdalian/gitgraph.js/blob/master/packages/gitgraph-node/CHANGELOG.md)
 
 Draw pretty git graphs in your terminal.
 
@@ -15,7 +15,7 @@ Draw pretty git graphs in your terminal.
 
 > You need to have [npm][get-npm] installed.
 
-Install the package with npm: `npm i --save @gitgraph/node`
+Install the package with npm: `npm i --save @vamosdalian/gitgraph-node`
 
 Then, use it in your node.js scripts.
 
@@ -26,7 +26,7 @@ Then, use it in your node.js scripts.
 Let's pretend this is your `index.js`:
 
 ```js
-const { Gitgraph, render } = require("@gitgraph/node");
+const { Gitgraph, render } = require("@vamosdalian/gitgraph-node");
 
 const gitgraph = new Gitgraph();
 
@@ -38,10 +38,7 @@ const develop = master.branch("develop");
 develop.commit("Add TypeScript");
 
 const aFeature = develop.branch("a-feature");
-aFeature
-  .commit("Make it work")
-  .commit("Make it right")
-  .commit("Make it fast");
+aFeature.commit("Make it work").commit("Make it right").commit("Make it fast");
 
 develop.merge(aFeature);
 develop.commit("Prepare v1");
@@ -56,4 +53,4 @@ Running `node index.js` will produce following output:
 
 ![Example usage](./assets/example-usage.png)
 
-[gitgraph-repo]: https://github.com/nicoespeon/gitgraph.js/
+[gitgraph-repo]: https://github.com/vamosdalian/gitgraph.js/

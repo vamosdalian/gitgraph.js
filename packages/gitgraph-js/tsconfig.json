@@ -1,24 +1,8 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "lib",
-    "target": "es5",
-    "module": "es2015",
-    "lib": [
-      "dom",
-      "esnext"
-    ],
-    "declaration": true,
-    "sourceMap": true,
-    "removeComments": false,
-    "strict": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "moduleResolution": "node",
+    "outDir": "lib"
   },
-  "files": [
-    "src/index.ts"
-  ]
+  "include": ["src/**/*.ts"]
 }

@@ -1,6 +1,16 @@
 const baseProjectConfig = {
   transform: {
-    "^.+\\.(ts|tsx)$": "ts-jest",
+    "^.+\\.(ts|tsx)$": [
+      "ts-jest",
+      {
+        diagnostics: false,
+        tsconfig: {
+          jsx: "react",
+          module: "commonjs",
+          target: "es2020",
+        },
+      },
+    ],
   },
   moduleFileExtensions: ["ts", "tsx", "js"],
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",

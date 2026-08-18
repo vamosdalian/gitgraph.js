@@ -197,11 +197,8 @@ class BranchUserApi<TNode> {
         commitOptions: { subject: args[1] },
       };
     }
-    const {
-      branch,
-      fastForward,
-      commitOptions,
-    } = options as GitgraphMergeOptions<TNode>;
+    const { branch, fastForward, commitOptions } =
+      options as GitgraphMergeOptions<TNode>;
 
     const branchName = typeof branch === "string" ? branch : branch.name;
     const branchLastCommitHash = this._graph.refs.getCommit(branchName);

@@ -5,15 +5,14 @@ import { BasicUsageResult, BasicScenario } from "./components/Examples";
 
 <Head>
   <title>GitGraph.js</title>
-  <meta name="twitter:card" content="https://gitgraphjs.com" />
-  <meta name="twitter:site" content="@nicoespeon" />
+  <meta name="twitter:card" content="https://vamosdalian.github.io/gitgraph.js/" />
   <meta name="twitter:title" content="GitGraph.js" />
   <meta
     name="twitter:description"
     content="A JavaScript library to draw pretty git graphs."
   />
-  <meta name="twitter:image" content="https://gitgraphjs.com/assets/gitgraph-logo.png" />
-  <meta name="og:image" content="https://gitgraphjs.com/assets/gitgraph-logo.png" />
+  <meta name="twitter:image" content="https://vamosdalian.github.io/gitgraph.js/assets/gitgraph-logo.png" />
+  <meta name="og:image" content="https://vamosdalian.github.io/gitgraph.js/assets/gitgraph-logo.png" />
   <link rel="shortcut icon" type="image/png" href="./assets/favicon.png" />
 </Head>
 <h1 className="sr-only">GitGraph.js</h1>
@@ -38,11 +37,11 @@ export { default as theme } from "./theme";
 
 ## 📦 Install GitGraph.js
 
-- For JS (<small>[README][js-readme]</small>): `npm i @gitgraph/js`
-- For React (<small>[README][react-readme]</small>): `npm i @gitgraph/react`
+- For JS (<small>[README][js-readme]</small>): `npm i @vamosdalian/gitgraph-js`
+- For React (<small>[README][react-readme]</small>): `npm i @vamosdalian/gitgraph-react`
 
-[js-readme]: https://github.com/nicoespeon/gitgraph.js/tree/master/packages/gitgraph-js#gitgraphjs
-[react-readme]: https://github.com/nicoespeon/gitgraph.js/tree/master/packages/gitgraph-react#gitgraphreact
+[js-readme]: https://github.com/vamosdalian/gitgraph.js/tree/master/packages/gitgraph-js#gitgraphjs
+[react-readme]: https://github.com/vamosdalian/gitgraph.js/tree/master/packages/gitgraph-react#gitgraphreact
 
 ---
 
@@ -54,7 +53,7 @@ export { default as theme } from "./theme";
 ```
 
 ```js
-import { createGitgraph } from "@gitgraph/js";
+import { createGitgraph } from "@vamosdalian/gitgraph-js";
 
 const graphContainer = document.getElementById("gitgraph");
 const gitgraph = createGitgraph(graphContainer);
@@ -65,7 +64,7 @@ const gitgraph = createGitgraph(graphContainer);
 ### Importing the React library
 
 ```jsx
-import { Gitgraph } from "@gitgraph/react";
+import { Gitgraph } from "@vamosdalian/gitgraph-react";
 
 // Now you can use the component =>
 <Gitgraph>{(gitgraph) => {}}</Gitgraph>;
@@ -98,12 +97,12 @@ export default Invert;
 You can customize the graph with `options`
 
 ```jsx
-// @gitgraph/js − Pass `options` as second param
+// @vamosdalian/gitgraph-js − Pass `options` as second param
 const gitgraph = createGitgraph(graphContainer, options);
 ```
 
 ```jsx
-// @gitgraph/react − Provide `options` as props
+// @vamosdalian/gitgraph-react − Provide `options` as props
 <Gitgraph options={options}>{(gitgraph) => {}}</Gitgraph>
 ```
 
@@ -246,8 +245,8 @@ But also: `onMouseOver`, `onMouseOut`, etc.
 
 ## Check detailed use-cases 🧐
 
-- [JS stories][js-stories] of `@gitgraph/js`
-- [React stories][react-stories] of `@gitgraph/react`
+- [JS stories][js-stories] of `@vamosdalian/gitgraph-js`
+- [React stories][react-stories] of `@vamosdalian/gitgraph-react`
 
 [js-stories]: ./stories?path=/story/gitgraph-js-1-basic-usage--default
 [react-stories]: ./stories?path=/story/gitgraph-react-1-basic-usage--default

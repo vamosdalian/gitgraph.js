@@ -1,8 +1,10 @@
 import * as React from "react";
-import { Commit } from "@gitgraph/core";
+import { Commit } from "@vamosdalian/gitgraph-core";
 
 export class Tooltip extends React.Component<
-  { commit: Commit<React.ReactElement<SVGElement>> },
+  React.PropsWithChildren<{
+    commit: Commit<React.ReactElement<SVGElement>>;
+  }>,
   { textWidth: number }
 > {
   public static readonly padding = 10;

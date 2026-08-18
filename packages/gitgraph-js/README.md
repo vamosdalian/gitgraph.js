@@ -1,7 +1,7 @@
-# `@gitgraph/js`
+# `@vamosdalian/gitgraph-js`
 
-[![version](https://img.shields.io/npm/v/@gitgraph/js.svg?logo=npm)](https://www.npmjs.com/package/@gitgraph/js)
-[![Changelog](https://img.shields.io/badge/%F0%9F%93%94-changelog-CD9523.svg)](https://github.com/nicoespeon/gitgraph.js/blob/master/packages/gitgraph-js/CHANGELOG.md)
+[![version](https://img.shields.io/npm/v/@vamosdalian/gitgraph-js.svg?logo=npm)](https://www.npmjs.com/package/@vamosdalian/gitgraph-js)
+[![Changelog](https://img.shields.io/badge/%F0%9F%93%94-changelog-CD9523.svg)](https://github.com/vamosdalian/gitgraph.js/blob/master/packages/gitgraph-js/CHANGELOG.md)
 
 Draw pretty git graphs with vanilla JS.
 
@@ -22,49 +22,49 @@ You have 2 options:
 
 Get the bundle from one of the following sources:
 
-- jsDelivr CDN: <https://cdn.jsdelivr.net/npm/@gitgraph/js>
-- unpkg CDN: <https://unpkg.com/@gitgraph/js>
+- jsDelivr CDN: <https://cdn.jsdelivr.net/npm/@vamosdalian/gitgraph-js>
+- unpkg CDN: <https://unpkg.com/@vamosdalian/gitgraph-js>
 
 Create an `index.html` file and start coding:
 
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <!-- Load the JS file -->
-  <script src="https://cdn.jsdelivr.net/npm/@gitgraph/js"></script>
-</head>
-<body>
-  <!-- DOM element in which we'll mount our graph -->
-  <div id="graph-container"></div>
+  <head>
+    <!-- Load the JS file -->
+    <script src="https://cdn.jsdelivr.net/npm/@vamosdalian/gitgraph-js"></script>
+  </head>
+  <body>
+    <!-- DOM element in which we'll mount our graph -->
+    <div id="graph-container"></div>
 
-  <!-- Use the `GitgraphJS` global variable to create your graph -->
-  <script>
-    // Get the graph container HTML element.
-    const graphContainer = document.getElementById("graph-container");
+    <!-- Use the `GitgraphJS` global variable to create your graph -->
+    <script>
+      // Get the graph container HTML element.
+      const graphContainer = document.getElementById("graph-container");
 
-    // Instantiate the graph.
-    const gitgraph = GitgraphJS.createGitgraph(graphContainer);
+      // Instantiate the graph.
+      const gitgraph = GitgraphJS.createGitgraph(graphContainer);
 
-    // Simulate git commands with Gitgraph API.
-    const master = gitgraph.branch("master");
-    master.commit("Initial commit");
+      // Simulate git commands with Gitgraph API.
+      const master = gitgraph.branch("master");
+      master.commit("Initial commit");
 
-    const develop = master.branch("develop");
-    develop.commit("Add TypeScript");
+      const develop = master.branch("develop");
+      develop.commit("Add TypeScript");
 
-    const aFeature = develop.branch("a-feature");
-    aFeature
-      .commit("Make it work")
-      .commit("Make it right")
-      .commit("Make it fast");
+      const aFeature = develop.branch("a-feature");
+      aFeature
+        .commit("Make it work")
+        .commit("Make it right")
+        .commit("Make it fast");
 
-    develop.merge(aFeature);
-    develop.commit("Prepare v1");
+      develop.merge(aFeature);
+      develop.commit("Prepare v1");
 
-    master.merge(develop).tag("v1.0.0");
-  </script>
-</body>
+      master.merge(develop).tag("v1.0.0");
+    </script>
+  </body>
 </html>
 ```
 
@@ -84,7 +84,7 @@ Create a new folder for your project and go there: `mkdir your-project && cd you
 
 Initialize your npm project: `npm init -y`
 
-Install the package with npm: `npm i --save @gitgraph/js`
+Install the package with npm: `npm i --save @vamosdalian/gitgraph-js`
 
 Install Parcel bundler: `npm i --save-dev parcel-bundler`
 
@@ -95,23 +95,23 @@ Create an `index.html` file:
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <!-- … -->
-</head>
-<body>
-  <!-- DOM element in which we'll mount our graph -->
-  <div id="graph-container"></div>
+  <head>
+    <!-- … -->
+  </head>
+  <body>
+    <!-- DOM element in which we'll mount our graph -->
+    <div id="graph-container"></div>
 
-  <!-- This is for ParcelJS bundler -->
-  <script src="./index.js"></script>
-</body>
+    <!-- This is for ParcelJS bundler -->
+    <script src="./index.js"></script>
+  </body>
 </html>
 ```
 
 Create an `index.js` file:
 
 ```js
-import { createGitgraph } from "@gitgraph/js";
+import { createGitgraph } from "@vamosdalian/gitgraph-js";
 
 // Get the graph container HTML element.
 const graphContainer = document.getElementById("graph-container");
@@ -127,10 +127,7 @@ const develop = gitgraph.branch("develop");
 develop.commit("Add TypeScript");
 
 const aFeature = gitgraph.branch("a-feature");
-aFeature
-  .commit("Make it work")
-  .commit("Make it right")
-  .commit("Make it fast");
+aFeature.commit("Make it work").commit("Make it right").commit("Make it fast");
 
 develop.merge(aFeature);
 develop.commit("Prepare v1");
@@ -159,12 +156,12 @@ Run `npm start`. You should see the following graph:
 
 ## If you're coming from `gitgraph.js` package
 
-[Here's a guide to help you migrate][migration-guide] to `@gitgraph/js`.
+[Here's a guide to help you migrate][migration-guide] to `@vamosdalian/gitgraph-js`.
 
 [playground]: https://codepen.io/nicoespeon/pen/arqPWb?editors=1010
 [get-npm]: https://www.npmjs.com/get-npm
-[gitgraph-repo]: https://github.com/nicoespeon/gitgraph.js/
-[stories]: https://github.com/nicoespeon/gitgraph.js/tree/master/packages/stories/src/gitgraph-js/
-[migration-guide]: https://github.com/nicoespeon/gitgraph.js/blob/master/packages/gitgraph-js/MIGRATE_FROM_GITGRAPH.JS.md
-[latest-release]: https://github.com/nicoespeon/gitgraph.js/releases/latest
-[assets-example]: https://github.com/nicoespeon/gitgraph.js/blob/master/packages/gitgraph-js/assets/example-usage.png?raw=true
+[gitgraph-repo]: https://github.com/vamosdalian/gitgraph.js/
+[stories]: https://github.com/vamosdalian/gitgraph.js/tree/master/packages/stories/src/gitgraph-js/
+[migration-guide]: https://github.com/vamosdalian/gitgraph.js/blob/master/packages/gitgraph-js/MIGRATE_FROM_GITGRAPH.JS.md
+[latest-release]: https://github.com/vamosdalian/gitgraph.js/releases/latest
+[assets-example]: https://github.com/vamosdalian/gitgraph.js/blob/master/packages/gitgraph-js/assets/example-usage.png?raw=true

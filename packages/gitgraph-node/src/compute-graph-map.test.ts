@@ -4,7 +4,7 @@ import {
   BranchUserApi,
   templateExtend,
   TemplateName,
-} from "@gitgraph/core";
+} from "@vamosdalian/gitgraph-core";
 
 import computeGraphMap, { GraphCommit, GraphMap } from "./compute-graph-map";
 

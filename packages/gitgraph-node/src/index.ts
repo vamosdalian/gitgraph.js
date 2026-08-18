@@ -1,4 +1,4 @@
-import { GitgraphCore } from "@gitgraph/core";
+import { GitgraphCore } from "@vamosdalian/gitgraph-core";
 
 // Domain (rendering logic)
 import computeGraphMap from "./compute-graph-map";

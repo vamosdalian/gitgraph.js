@@ -28,7 +28,7 @@ If applicable, add screenshots to help explain your problem.
 
 **Context**
 
-- Which library is impacted? (e.g. `@gitgraph/js` and `@gitgraph/react`)
+- Which library is impacted? (e.g. `@vamosdalian/gitgraph-js` and `@vamosdalian/gitgraph-react`)
 - Which version of the library is it?
 - What browser and version is impacted? (e.g. Chrome 74)
 

@@ -1,3 +1,6 @@
-*.json
+**/lib/
 dist/
-gitgraph-core/lib/
+node_modules/
+package-lock.json
+packages/stories/
+packages/website/
