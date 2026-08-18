@@ -1,6 +1,6 @@
 {
   "name": "@vamosdalian/gitgraph-node",
-  "version": "0.1.18",
+  "version": "2.0.1",
   "description": "Draw Git graphs in a Node.js terminal",
   "license": "MIT",
   "repository": {
@@ -52,7 +52,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@vamosdalian/gitgraph-core": "1.5.0",
+    "@vamosdalian/gitgraph-core": "2.0.1",
     "chalk": "4.1.2"
   },
   "devDependencies": {

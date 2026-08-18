@@ -62,8 +62,8 @@ Available root-level commands are detailed in `package.json`. You would usually 
 
 ## Publishing
 
-1. Bump the version of every package that will be published and update internal
-   dependency versions when `gitgraph-core` changes.
+1. Bump the root version and all four public package versions together. Internal
+   `gitgraph-core` dependency versions must match the release version.
 2. Run `npm run test:ci` locally.
 3. Configure the GitHub `npm` environment with an `NPM_TOKEN` secret that can
    publish the `@vamosdalian` scope.
@@ -87,6 +87,10 @@ To help you get your feet wet and get you familiar with our contribution process
 ## Versioning
 
 We use [SemVer][semver] as a guideline for our versioning here.
+
+The root workspace and all four public packages use a fixed, synchronized
+version. A GitHub Release tagged `vX.Y.Z` publishes each package as `X.Y.Z`.
+`npm run version:check` verifies this contract in CI.
 
 Releases use the following format:
 
