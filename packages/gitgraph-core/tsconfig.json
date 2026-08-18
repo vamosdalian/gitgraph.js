@@ -1,24 +1,9 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "lib",
-    "target": "es6",
-    "module": "commonjs",
-    "lib": [
-      "dom",
-      "esnext"
-    ],
-    "declaration": true,
-    "sourceMap": true,
-    "removeComments": false,
-    "strict": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "allowSyntheticDefaultImports": true
+    "outDir": "lib"
   },
-  "files": [
-    "src/index.ts"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.test.ts", "src/**/__tests__/**"]
 }

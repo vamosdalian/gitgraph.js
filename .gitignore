@@ -151,4 +151,5 @@ Thumbs.db
 lib
 
 # npm
-package-lock.json
+node_modules/
+*.tgz

@@ -1,64 +1,58 @@
 {
-  "name": "@gitgraph/js",
+  "name": "@vamosdalian/gitgraph-js",
   "version": "1.4.0",
-  "description": "Draw pretty git graphs in the browser",
-  "author": "Nicolas Carlo <nicolascarlo.espeon@gmail.com>",
-  "contributors": [
-    {
-      "name": "Fabien Bernard",
-      "email": "fabien0102@gmail.com"
-    }
-  ],
+  "description": "Draw Git graphs in the browser",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nicoespeon/gitgraph.js.git"
+    "url": "git+https://github.com/vamosdalian/gitgraph.js.git",
+    "directory": "packages/gitgraph-js"
   },
   "bugs": {
-    "url": "https://github.com/nicoespeon/gitgraph.js/issues"
+    "url": "https://github.com/vamosdalian/gitgraph.js/issues"
   },
+  "homepage": "https://github.com/vamosdalian/gitgraph.js/tree/master/packages/gitgraph-js#readme",
   "keywords": [
     "git",
     "graph",
-    "javascript"
+    "javascript",
+    "browser"
   ],
-  "homepage": "https://github.com/nicoespeon/gitgraph.js#readme",
-  "publishConfig": {
-    "access": "public"
-  },
-  "main": "./lib/index.js",
+  "type": "module",
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.mjs",
   "browser": "./lib/gitgraph.umd.js",
-  "module": "./lib/index.js",
-  "jsnext:main": "./lib/index.js",
-  "typings": "./lib/index.d.ts",
-  "directories": {
-    "lib": "lib"
+  "unpkg": "./lib/gitgraph.umd.min.js",
+  "jsdelivr": "./lib/gitgraph.umd.min.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.cjs"
+    }
   },
   "files": [
-    "lib"
+    "lib",
+    "CHANGELOG.md",
+    "README.md",
+    "MIGRATE_FROM_GITGRAPH.JS.md"
   ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true,
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
-    "prewatch": "rimraf ./lib",
-    "watch": "tsc -w",
-    "build": "run-s build:*",
-    "build:clear": "rimraf ./lib",
-    "build:tsc": "tsc",
-    "build:bundle": "rollup -c rollup.config.js",
-    "build:minify": "uglifyjs -c -m -o ./lib/gitgraph.umd.min.js -- ./lib/gitgraph.umd.js",
-    "prepare": "npm run build",
-    "version": "auto-changelog -p -l 0 --tag-prefix @gitgraph/js@ && git add CHANGELOG.md"
+    "build": "npm run clean && tsc -p tsconfig.json && rollup -c rollup.config.mjs",
+    "clean": "rimraf lib",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@gitgraph/core": "1.5.0"
-  },
-  "devDependencies": {
-    "@types/node": "9.4.6",
-    "auto-changelog": "1.12.1",
-    "npm-run-all": "4.1.2",
-    "rimraf": "2.6.2",
-    "rollup": "1.10.1",
-    "rollup-plugin-commonjs": "9.3.4",
-    "rollup-plugin-node-resolve": "4.2.3",
-    "uglify-es": "3.3.9"
+    "@vamosdalian/gitgraph-core": "1.5.0"
   }
 }

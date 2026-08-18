@@ -1,7 +1,6 @@
 import * as React from "react";
-import { Branch, Commit, GitgraphCore } from "@gitgraph/core";
+import { Branch, Commit, GitgraphCore } from "@vamosdalian/gitgraph-core";
 import { ReactSvgElement } from "./types";
-import { MutableRefObject } from "react";
 
 interface BranchLabelBaseProps {
   branch: Branch<React.ReactElement<SVGElement>>;
@@ -14,7 +13,7 @@ function DefaultBranchLabel({ branch, commit }: BranchLabelBaseProps) {
     textHeight: 0,
   });
 
-  const getSizing = React.useCallback((node) => {
+  const getSizing = React.useCallback((node: SVGTextElement | null) => {
     if (!node) return;
     const box = node.getBBox();
     setTextSizing({ textWidth: box.width, textHeight: box.height });
@@ -49,12 +48,12 @@ function DefaultBranchLabel({ branch, commit }: BranchLabelBaseProps) {
 
 interface BranchLabelProps extends BranchLabelBaseProps {
   gitgraph: GitgraphCore<ReactSvgElement>;
-  ref: MutableRefObject<SVGGElement | undefined>;
   branchLabelX: number;
 }
 
-export interface CompoundedComponent
-  extends React.ForwardRefExoticComponent<BranchLabelProps> {
+export interface CompoundedComponent extends React.ForwardRefExoticComponent<
+  BranchLabelProps & React.RefAttributes<SVGGElement>
+> {
   paddingX: number;
   paddingY: number;
 }

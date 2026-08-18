@@ -1,6 +1,6 @@
 # How to migrate from `gitgraph.js` package
 
-`@gitgraph/js` is meant to replace the `gitgraph.js` package. I will refer to `gitgraph.js` as v1 and `@gitgraph/js` as v2.
+`@vamosdalian/gitgraph-js` is meant to replace the `gitgraph.js` package. I will refer to `gitgraph.js` as v1 and `@vamosdalian/gitgraph-js` as v2.
 
 ## Instantiate the graph
 
@@ -314,7 +314,7 @@ develop.commit({
 In v2, you can extend an existing template with the `templateExtend()` function:
 
 ```js
-import { createGitgraph, templateExtend, TemplateName } from "@gitgraph/js";
+import { createGitgraph, templateExtend, TemplateName } from "@vamosdalian/gitgraph-js";
 
 const metroTemplateWithoutAuthor = templateExtend(TemplateName.Metro, {
   commit: {

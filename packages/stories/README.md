@@ -1,7 +1,5 @@
-# Gitgraph.js stories
+# Historical GitGraph.js stories
 
-This package contains Gitgraph.js stories that showcase rendering libraries capabilities.
-
-They are all grouped into a single package so we can run automated visual tests, thanks to [Chromatic](https://www.chromaticqa.com/).
-
-You can run stories locally with `yarn storybook` (or `npm run storybook`).
+This directory is retained as a historical visual fixture. It is not part of
+the maintained npm workspace or CI build because it depends on the archived
+Storybook 5 and Chromatic setup.

@@ -1,22 +1,14 @@
 {
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "lib",
-    "target": "es5",
-    "module": "es2015",
-    "jsx": "react",
-    "lib": [
-      "dom",
-      "esnext"
-    ],
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["DOM", "ES2020"],
     "declaration": true,
     "sourceMap": true,
-    "removeComments": false,
     "strict": true,
-    "noImplicitAny": true,
     "noImplicitReturns": true,
-    "noImplicitThis": true,
     "noUnusedLocals": true,
-    "moduleResolution": "node",
+    "skipLibCheck": true
   }
 }

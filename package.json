@@ -1,66 +1,52 @@
 {
-  "name": "gitgraph.js-monorepo",
+  "name": "@vamosdalian/gitgraph-monorepo",
   "private": true,
-  "version": "2.0.0-monorepo",
-  "author": "Nicolas Carlo <nicolascarlo.espeon@gmail.com>",
-  "description": "A JavaScript library to draw pretty git graphs",
-  "contributors": [
-    {
-      "name": "Fabien Bernard",
-      "email": "fabien0102@gmail.com"
-    }
-  ],
+  "version": "2.0.0",
+  "description": "A maintained fork of GitGraph.js",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nicoespeon/gitgraph.js"
+    "url": "git+https://github.com/vamosdalian/gitgraph.js.git"
   },
-  "license": "MIT",
-  "keywords": [
-    "git",
-    "graph",
-    "javascript"
-  ],
+  "engines": {
+    "node": ">=22.12.0",
+    "npm": ">=10"
+  },
+  "packageManager": "npm@10.9.3",
   "scripts": {
-    "lerna": "lerna",
-    "build": "lerna run build --scope=@gitgraph/{core,react,js,node} --stream",
-    "watch": "lerna run watch --stream",
-    "storybook": "sleep 3 && lerna run storybook --stream",
-    "develop": "concurrently npm:watch npm:storybook",
-    "website": "lerna run start --scope=@gitgraph/website --stream",
-    "deploy:website": "lerna run deploy --scope=@gitgraph/website --stream",
-    "lint": "eslint packages/**/src/**/*.{ts,tsx}",
-    "lint:fix": "npm run lint -- --fix",
+    "build": "npm run build -w @vamosdalian/gitgraph-core && npm run build -w @vamosdalian/gitgraph-js && npm run build -w @vamosdalian/gitgraph-react && npm run build -w @vamosdalian/gitgraph-node",
+    "clean": "npm run clean --workspaces --if-present",
+    "format": "prettier --write README.md CONTRIBUTING.md package.json tsconfig.json jest.config.cjs eslint.config.mjs .github/workflows packages/gitgraph-{core,js,node,react}/{package.json,tsconfig.json,rollup.config.mjs,README.md,src}",
+    "format:check": "prettier --check README.md CONTRIBUTING.md package.json tsconfig.json jest.config.cjs eslint.config.mjs .github/workflows packages/gitgraph-{core,js,node,react}/{package.json,tsconfig.json,rollup.config.mjs,README.md,src}",
+    "lint": "eslint packages/gitgraph-{core,js,node,react}/src --max-warnings 0",
+    "pack:check": "npm pack --dry-run -w @vamosdalian/gitgraph-core && npm pack --dry-run -w @vamosdalian/gitgraph-js && npm pack --dry-run -w @vamosdalian/gitgraph-react && npm pack --dry-run -w @vamosdalian/gitgraph-node",
     "pretest": "npm run build",
-    "test": "jest",
-    "test:e2e": "lerna run test:e2e --stream",
-    "test:ci": "CI=true npm run test && npm run test:e2e",
-    "clean": "lerna clean",
-    "all-contributors": "all-contributors"
+    "test": "jest --runInBand",
+    "test:ci": "npm run lint && npm run format:check && npm test && npm run pack:check"
   },
   "devDependencies": {
-    "@types/jest": "23.1.4",
-    "@typescript-eslint/eslint-plugin": "^4.8.2",
-    "@typescript-eslint/parser": "^4.8.2",
-    "all-contributors-cli": "6.16.0",
-    "concurrently": "4.1.0",
-    "eslint": "^7.14.0",
-    "eslint-config-prettier": "^6.15.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.21.5",
-    "husky": "1.1.2",
-    "jest": "23.3.0",
-    "lerna": "3.13.1",
-    "prettier": "^2.2.0",
-    "pretty-quick": "^3.1.0",
-    "ts-jest": "23.0.0",
-    "typescript": "3.5.1"
+    "@eslint/js": "9.39.5",
+    "@rollup/plugin-commonjs": "29.0.3",
+    "@rollup/plugin-node-resolve": "16.0.3",
+    "@rollup/plugin-terser": "1.0.0",
+    "@types/jest": "30.0.0",
+    "@types/node": "22.20.1",
+    "eslint": "9.39.5",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-react": "7.37.5",
+    "globals": "17.11.0",
+    "jest": "30.4.2",
+    "prettier": "3.9.6",
+    "rimraf": "6.1.3",
+    "rollup": "4.62.4",
+    "ts-jest": "29.4.12",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.67.0"
   },
   "workspaces": [
-    "packages/*"
-  ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint:fix && pretty-quick --staged"
-    }
-  }
+    "packages/gitgraph-core",
+    "packages/gitgraph-js",
+    "packages/gitgraph-node",
+    "packages/gitgraph-react"
+  ]
 }

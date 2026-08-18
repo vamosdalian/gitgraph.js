@@ -84,7 +84,7 @@ class GitgraphCore<TNode = SVGElement> {
   public currentBranch: Branch<TNode>;
 
   private listeners: Array<(data: RenderedData<TNode>) => void> = [];
-  private nextTimeoutId: number | null = null;
+  private nextTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
   constructor(options: GitgraphOptions = {}) {
     this.template = getTemplate(options.template);
@@ -237,9 +237,8 @@ class GitgraphCore<TNode = SVGElement> {
                 ...tipsOfMergedBranches,
                 ...commit.parents
                   .slice(1)
-                  .map(
-                    (parentHash) =>
-                      this.commits.find(({ hash }) => parentHash === hash)!,
+                  .map((parentHash) =>
+                    this.commits.find(({ hash }) => parentHash === hash)!,
                   ),
               ]
             : tipsOfMergedBranches,
@@ -475,11 +474,11 @@ class GitgraphCore<TNode = SVGElement> {
    */
   private next() {
     if (this.nextTimeoutId) {
-      window.clearTimeout(this.nextTimeoutId);
+      globalThis.clearTimeout(this.nextTimeoutId);
     }
 
     // Use setTimeout() with `0` to debounce call to next tick.
-    this.nextTimeoutId = window.setTimeout(() => {
+    this.nextTimeoutId = globalThis.setTimeout(() => {
       this.listeners.forEach((listener) => listener(this.getRenderedData()));
     }, 0);
   }

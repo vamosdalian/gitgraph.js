@@ -16,7 +16,7 @@ import {
   Orientation,
   TemplateName,
   templateExtend,
-} from "@gitgraph/core";
+} from "@vamosdalian/gitgraph-core";
 
 import {
   createSvg,
@@ -166,9 +166,8 @@ function createGitgraph(
             10,
           );
 
-          const firstForeignObject = commit.getElementsByTagName(
-            "foreignObject",
-          )[0];
+          const firstForeignObject =
+            commit.getElementsByTagName("foreignObject")[0];
           const customHtmlMessage =
             firstForeignObject && firstForeignObject.firstElementChild;
 
@@ -231,7 +230,7 @@ function createGitgraph(
     function adaptGraphDimensions(adaptToContainer: boolean): void {
       const { height, width } = svg.getBBox();
 
-      // FIXME: In horizontal mode, we mimic @gitgraph/react behavior
+      // FIXME: In horizontal mode, we mimic @vamosdalian/gitgraph-react behavior
       // => it gets re-rendered after offsets are computed
       // => it applies paddings twice!
       //
@@ -269,7 +268,7 @@ function createGitgraph(
     const transform = target.getAttribute("transform") || "translate(0, 0)";
     target.setAttribute(
       "transform",
-      transform.replace(/translate\(([\d\.]+),/, `translate(${x},`),
+      transform.replace(/translate\(([\d.]+),/, `translate(${x},`),
     );
   }
 
@@ -432,7 +431,7 @@ function createGitgraph(
   }
 
   function renderBranchLabels(commit: Commit): Array<SVGElement | null> {
-    // @gitgraph/core could compute branch labels into commits directly.
+    // @vamosdalian/gitgraph-core could compute branch labels into commits directly.
     // That will make it easier to retrieve them, just like tags.
     const branches = Array.from(gitgraph.branches.values());
     return branches.map((branch) => {

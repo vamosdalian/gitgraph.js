@@ -99,7 +99,7 @@ function isUndefined(obj: any): obj is undefined {
  *
  * @param obj
  */
-function withoutUndefinedKeys<T>(
+function withoutUndefinedKeys<T extends object>(
   obj: T = {} as T,
 ): NonMatchingProp<T, undefined> {
   return (Object.keys(obj) as [keyof T]).reduce<T>(

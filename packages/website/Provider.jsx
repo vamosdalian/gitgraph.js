@@ -8,7 +8,7 @@ function Provider(props) {
   return (
     <>
       <DefaultProvider {...props} />
-      <GithubCorner href="https://github.com/nicoespeon/gitgraph.js/" />
+      <GithubCorner href="https://github.com/vamosdalian/gitgraph.js/" />
     </>
   );
 }

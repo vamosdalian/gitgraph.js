@@ -122,7 +122,7 @@ describe("Gitgraph.tag", () => {
       .branch("master")
       .commit({ subject: "tagged", hash: "tagged-hash" });
 
-    expect(() => gitgraph.tag("this-one", "unknown")).toThrowError(
+    expect(() => gitgraph.tag("this-one", "unknown")).toThrow(
       'The ref "unknown" does not exist',
     );
   });

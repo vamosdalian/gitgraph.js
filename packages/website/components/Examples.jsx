@@ -1,5 +1,5 @@
 import React from "react";
-import { Gitgraph, templateExtend, TemplateName } from "@gitgraph/react";
+import { Gitgraph, templateExtend, TemplateName } from "@vamosdalian/gitgraph-react";
 
 export { BasicUsageResult, BasicScenario };
 

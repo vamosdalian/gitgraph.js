@@ -1,6 +1,6 @@
 import * as readline from "readline";
 
-import { ILogGraph, GraphMap } from "./compute-graph-map";
+import { ILogGraph, GraphMap } from "./compute-graph-map/types";
 import consoleGraphLogger from "./console-graph-logger";
 
 const DEFAULT_BUFFER_LENGTH = 10;

@@ -1,47 +1,61 @@
 {
-  "name": "@gitgraph/node",
+  "name": "@vamosdalian/gitgraph-node",
   "version": "0.1.18",
-  "description": "Draw pretty git graphs in the terminal, with node.js",
-  "author": "Nicolas Carlo <nicolascarlo.espeon@gmail.com>",
-  "contributors": [
-    {
-      "name": "Fabien Bernard",
-      "email": "fabien0102@gmail.com"
-    }
-  ],
+  "description": "Draw Git graphs in a Node.js terminal",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nicoespeon/gitgraph.js.git"
+    "url": "git+https://github.com/vamosdalian/gitgraph.js.git",
+    "directory": "packages/gitgraph-node"
   },
   "bugs": {
-    "url": "https://github.com/nicoespeon/gitgraph.js/issues"
+    "url": "https://github.com/vamosdalian/gitgraph.js/issues"
   },
+  "homepage": "https://github.com/vamosdalian/gitgraph.js/tree/master/packages/gitgraph-node#readme",
   "keywords": [
     "node",
+    "terminal",
     "git",
     "graph",
     "javascript"
   ],
-  "homepage": "https://github.com/nicoespeon/gitgraph.js#readme",
-  "publishConfig": {
-    "access": "public"
+  "type": "module",
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.mjs",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.cjs"
+    }
   },
-  "main": "./src/index.ts",
+  "files": [
+    "lib",
+    "CHANGELOG.md",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true,
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
-    "example:default": "ts-node examples/default.ts",
-    "example:branches": "ts-node examples/branches.ts",
-    "version": "auto-changelog -p -l 0 --tag-prefix @gitgraph/node@ && git add CHANGELOG.md"
+    "build": "npm run clean && tsc -p tsconfig.json && rollup -c rollup.config.mjs",
+    "clean": "rimraf lib",
+    "example:default": "tsx examples/default.ts",
+    "example:branches": "tsx examples/branches.ts",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@gitgraph/core": "1.5.0",
-    "chalk": "2.4.1",
-    "lodash": "4.17.13"
+    "@vamosdalian/gitgraph-core": "1.5.0",
+    "chalk": "4.1.2"
   },
   "devDependencies": {
-    "@types/lodash": "4.14.110",
-    "@types/node": "9.4.6",
-    "auto-changelog": "1.12.1",
-    "ts-node": "6.1.1"
+    "tsx": "4.23.12"
   }
 }

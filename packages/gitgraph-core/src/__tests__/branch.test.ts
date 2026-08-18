@@ -166,7 +166,7 @@ describe("Branch", () => {
     });
 
     describe("case: branch without commit", () => {
-      let master, develop, refs;
+      let master, refs;
 
       beforeEach(() => {
         const core = new GitgraphCore();
@@ -174,7 +174,7 @@ describe("Branch", () => {
         refs = core.refs;
 
         master = gitgraph.branch("master");
-        develop = gitgraph.branch("develop");
+        gitgraph.branch("develop");
       });
 
       it("should not initialize 'HEAD'", () => {

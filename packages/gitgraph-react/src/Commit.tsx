@@ -4,7 +4,7 @@ import {
   Commit as CommitCore,
   Mode,
   Coordinate,
-} from "@gitgraph/core";
+} from "@vamosdalian/gitgraph-core";
 import { ReactSvgElement } from "./types";
 import { Dot } from "./Dot";
 import { Tooltip } from "./Tooltip";
@@ -12,7 +12,6 @@ import { Arrow } from "./Arrow";
 import { Message } from "./Message";
 import { Tag, TAG_PADDING_X } from "./Tag";
 import { BranchLabel } from "./BranchLabel";
-import { MutableRefObject } from "react";
 
 interface CommitsProps {
   commits: Array<CommitCore<ReactSvgElement>>;
@@ -31,7 +30,7 @@ export const Commit = (props: CommitsProps) => {
   /**
    * This _should_ likely be an array, but is not in order to intentionally keep
    *  a potential bug in the codebase that existed prior to Hook-ifying this component
-   * @see https://github.com/nicoespeon/gitgraph.js/blob/be9cdf45c7f00970e68e1a4ba579ca7f5c672da4/packages/gitgraph-react/src/Gitgraph.tsx#L197
+   * @see https://github.com/vamosdalian/gitgraph.js/blob/be9cdf45c7f00970e68e1a4ba579ca7f5c672da4/packages/gitgraph-react/src/Gitgraph.tsx#L197
    * (notice that it's a single `null` value instead of an array
    *
    * The potential bug in question is "what happens when there are more than one
@@ -40,10 +39,9 @@ export const Commit = (props: CommitsProps) => {
    *
    * TODO: Investigate potential bug outlined above
    */
-  const branchLabelRef = React.useRef<SVGGElement>();
-  const tagRefs: MutableRefObject<SVGGElement[]> = React.useRef([]);
-  // "as unknown as any" needed to avoid `ref` mistypings later. :(
-  const messageRef: MutableRefObject<SVGGElement> = (React.useRef<SVGGElement>() as unknown) as any;
+  const branchLabelRef = React.useRef<SVGGElement | null>(null);
+  const tagRefs = React.useRef<Array<SVGGElement | null>>([]);
+  const messageRef = React.useRef<SVGGElement | null>(null);
 
   const [branchLabelX, setBranchLabelX] = React.useState(0);
   const [tagXs, setTagXs] = React.useState<number[]>([]);
@@ -68,7 +66,7 @@ export const Commit = (props: CommitsProps) => {
   }, [commits, commit, gitgraph]);
 
   const branchLabels = React.useMemo(() => {
-    // @gitgraph/core could compute branch labels into commits directly.
+    // @vamosdalian/gitgraph-core could compute branch labels into commits directly.
     // That will make it easier to retrieve them, just like tags.
     const branches = Array.from(gitgraph.branches.values());
     return branches.map((branch) => {
@@ -95,7 +93,9 @@ export const Commit = (props: CommitsProps) => {
         key={`${commit.hashAbbrev}-${tag.name}`}
         commit={commit}
         tag={tag}
-        ref={(r) => (tagRefs.current[i] = r!)}
+        ref={(node) => {
+          tagRefs.current[i] = node;
+        }}
         tagX={tagXs[i] || 0}
       />
     ));
