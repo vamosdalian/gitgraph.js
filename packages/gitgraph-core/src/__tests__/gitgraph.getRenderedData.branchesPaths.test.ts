@@ -262,8 +262,8 @@ describe("Gitgraph.getRenderedData.branchesPaths", () => {
     expect(result[2][1]).toEqual([
       [
         { x: 0, y: 80 * 7 }, // merge develop
-        { x: 100, y: 80 * 6 },
-        { x: 100, y: 80 * 5 },
+        { x: 50, y: 80 * 6 },
+        { x: 50, y: 80 * 5 },
         { x: 0, y: 80 * 4 }, // merge feat1
       ],
     ]);
@@ -271,9 +271,9 @@ describe("Gitgraph.getRenderedData.branchesPaths", () => {
     expect(result[3][1]).toEqual([
       [
         { x: 0, y: 80 * 4 }, // merge feat1
-        { x: 150, y: 80 * 3 },
-        { x: 150, y: 80 * 2 },
-        { x: 150, y: 80 * 1 },
+        { x: 50, y: 80 * 3 },
+        { x: 50, y: 80 * 2 },
+        { x: 50, y: 80 * 1 },
         { x: 0, y: 80 * 0 }, // merge feat2
       ],
     ]);
