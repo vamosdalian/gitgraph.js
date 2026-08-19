@@ -612,7 +612,7 @@ describe("Gitgraph.getRenderedData.position", () => {
       },
       {
         subject: "four",
-        x: 100, // feat1
+        x: 50, // feat1 reuses dev lane
         y: 80 * 4,
       },
       {
@@ -627,7 +627,7 @@ describe("Gitgraph.getRenderedData.position", () => {
       },
       {
         subject: "six",
-        x: 150, // feat2
+        x: 50, // feat2 reuses dev lane
         y: 80 * 6,
       },
       {

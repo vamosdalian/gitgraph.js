@@ -1,7 +1,7 @@
 {
   "name": "@vamosdalian/gitgraph-monorepo",
   "private": true,
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A maintained fork of GitGraph.js",
   "license": "MIT",
   "repository": {
