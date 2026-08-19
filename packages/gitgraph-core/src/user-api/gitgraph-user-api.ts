@@ -4,8 +4,12 @@ import {
   Branch,
   BranchCommitDefaultOptions,
   BranchRenderOptions,
-  DELETED_BRANCH_NAME,
 } from "../branch";
+import {
+  getBranches,
+  getPrimaryBranchFirstParentHistory,
+  withBranches,
+} from "../branches";
 import { GitgraphCore } from "../gitgraph";
 import { Refs } from "../refs";
 import { BranchUserApi } from "./branch-user-api";
@@ -252,9 +256,21 @@ class GitgraphUserApi<TNode> {
     });
 
     // Create branches.
-    const branches = this._getBranches();
+    const branches = getBranches(this._graph.commits, this._graph.refs);
+    const primaryBranchFirstParentHistory = getPrimaryBranchFirstParentHistory(
+      this._graph.commits,
+      this._graph.refs,
+      this._graph.primaryBranch,
+    );
     this._graph.commits
-      .map((commit) => this._withBranches(branches, commit))
+      .map((commit) =>
+        withBranches(
+          branches,
+          commit,
+          this._graph.primaryBranch,
+          primaryBranchFirstParentHistory,
+        ),
+      )
       .reduce((mem, commit) => {
         if (!commit.branches) return mem;
         commit.branches.forEach((branch) => mem.add(branch));
@@ -266,59 +282,4 @@ class GitgraphUserApi<TNode> {
 
     return this;
   }
-
-  // tslint:disable:variable-name - Prefix `_` = explicitly private for JS users
-
-  // TODO: get rid of these duplicated private methods.
-  //
-  // These belong to Gitgraph. It is duplicated because of `import()`.
-  // `import()` should use regular user API instead.
-  private _withBranches(
-    branches: Map<Commit["hash"], Set<Branch["name"]>>,
-    commit: Commit<TNode>,
-  ): Commit<TNode> {
-    let commitBranches = Array.from(
-      (branches.get(commit.hash) || new Set()).values(),
-    );
-
-    if (commitBranches.length === 0) {
-      // No branch => branch has been deleted.
-      commitBranches = [DELETED_BRANCH_NAME];
-    }
-
-    return commit.setBranches(commitBranches);
-  }
-
-  private _getBranches(): Map<Commit["hash"], Set<Branch["name"]>> {
-    const result = new Map<Commit["hash"], Set<Branch["name"]>>();
-
-    const queue: Array<Commit["hash"]> = [];
-    const branches = this._graph.refs
-      .getAllNames()
-      .filter((name) => name !== "HEAD");
-    branches.forEach((branch) => {
-      const commitHash = this._graph.refs.getCommit(branch);
-      if (commitHash) {
-        queue.push(commitHash);
-      }
-
-      while (queue.length > 0) {
-        const currentHash = queue.pop() as Commit["hash"];
-        const current = this._graph.commits.find(
-          ({ hash }) => hash === currentHash,
-        ) as Commit<TNode> | null;
-        const prevBranches =
-          result.get(currentHash) || new Set<Branch["name"]>();
-        prevBranches.add(branch);
-        result.set(currentHash, prevBranches);
-        if (current && current.parents && current.parents.length > 0) {
-          queue.push(current.parents[0]);
-        }
-      }
-    });
-
-    return result;
-  }
-
-  // tslint:enable:variable-name
 }

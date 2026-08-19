@@ -1,6 +1,6 @@
 {
   "name": "@vamosdalian/gitgraph-js",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Draw Git graphs in the browser",
   "license": "MIT",
   "repository": {
@@ -53,6 +53,6 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@vamosdalian/gitgraph-core": "2.0.2"
+    "@vamosdalian/gitgraph-core": "2.0.3"
   }
 }
