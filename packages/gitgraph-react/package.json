@@ -1,6 +1,6 @@
 {
   "name": "@vamosdalian/gitgraph-react",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Render Git graphs with React",
   "license": "MIT",
   "repository": {
@@ -50,7 +50,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@vamosdalian/gitgraph-core": "2.0.2"
+    "@vamosdalian/gitgraph-core": "2.0.3"
   },
   "peerDependencies": {
     "react": ">=18.0.0 <20.0.0"

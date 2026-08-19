@@ -26,11 +26,22 @@ class BranchesOrder<TNode> {
     commits: Array<Commit<TNode>>,
     colors: Color[],
     compareFunction: CompareBranchesOrder | undefined,
+    primaryBranch?: Branch["name"],
   ) {
     this.colors = colors;
     commits.forEach((commit) => this.branches.add(commit.branchToDisplay));
 
-    if (compareFunction) {
+    if (primaryBranch && this.branches.has(primaryBranch)) {
+      const otherBranches = Array.from(this.branches).filter(
+        (branch) => branch !== primaryBranch,
+      );
+      this.branches = new Set([
+        primaryBranch,
+        ...(compareFunction
+          ? otherBranches.sort(compareFunction)
+          : otherBranches),
+      ]);
+    } else if (compareFunction) {
       this.branches = new Set(Array.from(this.branches).sort(compareFunction));
     }
   }

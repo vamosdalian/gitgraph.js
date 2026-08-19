@@ -1,4 +1,4 @@
-import { Branch, DELETED_BRANCH_NAME, createDeletedBranch } from "./branch";
+import { Branch, createDeletedBranch } from "./branch";
 import { Commit } from "./commit";
 import { createGraphRows, GraphRows } from "./graph-rows";
 import { Mode } from "./mode";
@@ -12,6 +12,11 @@ import {
 } from "./template";
 import { Refs } from "./refs";
 import { BranchesPathsCalculator, BranchesPaths } from "./branches-paths";
+import {
+  getBranches,
+  getPrimaryBranchFirstParentHistory,
+  withBranches,
+} from "./branches";
 import { booleanOptionOr, numberOptionOr } from "./utils";
 import { Orientation } from "./orientation";
 import {
@@ -34,6 +39,10 @@ interface GitgraphOptions {
   commitMessage?: string;
   generateCommitHash?: () => Commit["hash"];
   compareBranchesOrder?: CompareBranchesOrder;
+  /**
+   * Branch whose first-parent ancestry should be rendered as the mainline.
+   */
+  primaryBranch?: string;
 }
 
 interface RenderedData<TNode> {
@@ -71,6 +80,7 @@ class GitgraphCore<TNode = SVGElement> {
   public commitMessage: string;
   public generateCommitHash: () => Commit["hash"] | undefined;
   public branchesOrderFunction: CompareBranchesOrder | undefined;
+  public primaryBranch: Branch["name"] | undefined;
   public template: Template;
   public branchLabelOnEveryCommit: boolean;
 
@@ -110,6 +120,7 @@ class GitgraphCore<TNode = SVGElement> {
       typeof options.compareBranchesOrder === "function"
         ? options.compareBranchesOrder
         : undefined;
+    this.primaryBranch = options.primaryBranch;
     this.branchLabelOnEveryCommit = booleanOptionOr(
       options.branchLabelOnEveryCommit,
       false,
@@ -217,7 +228,12 @@ class GitgraphCore<TNode = SVGElement> {
    * Return commits with data for rendering.
    */
   private computeRenderedCommits(): Array<Commit<TNode>> {
-    const branches = this.getBranches();
+    const branches = getBranches(this.commits, this.refs);
+    const primaryBranchFirstParentHistory = getPrimaryBranchFirstParentHistory(
+      this.commits,
+      this.refs,
+      this.primaryBranch,
+    );
 
     // Commits that are not associated to a branch in `branches`
     // were in a deleted branch. If the latter was merged beforehand
@@ -272,7 +288,12 @@ class GitgraphCore<TNode = SVGElement> {
     );
 
     const commitsWithBranches = commitsToRender.map((commit) =>
-      this.withBranches(branches, commit),
+      withBranches(
+        branches,
+        commit,
+        this.primaryBranch,
+        primaryBranchFirstParentHistory,
+      ),
     );
 
     const rows = createGraphRows(this.mode, commitsToRender);
@@ -280,6 +301,7 @@ class GitgraphCore<TNode = SVGElement> {
       commitsWithBranches,
       this.template.colors,
       this.branchesOrderFunction,
+      this.primaryBranch,
     );
 
     const commitsWithPreliminaryPositions = commitsWithBranches
@@ -357,6 +379,7 @@ class GitgraphCore<TNode = SVGElement> {
       commits,
       this.template.colors,
       this.branchesOrderFunction,
+      this.primaryBranch,
     );
     Array.from(branchesPaths).forEach(([branch]) => {
       branch.computedColor =
@@ -390,60 +413,6 @@ class GitgraphCore<TNode = SVGElement> {
       (maxLaneCoordinate - laneOffset) / this.template.branch.spacing,
     );
     return (maxLane + 1) * this.template.branch.spacing;
-  }
-
-  /**
-   * Add `branches` property to commit.
-   *
-   * @param branches All branches mapped by commit hash
-   * @param commit Commit
-   */
-  private withBranches(
-    branches: Map<Commit["hash"], Set<Branch["name"]>>,
-    commit: Commit<TNode>,
-  ): Commit<TNode> {
-    let commitBranches = Array.from(
-      (branches.get(commit.hash) || new Set()).values(),
-    );
-
-    if (commitBranches.length === 0) {
-      // No branch => branch has been deleted.
-      commitBranches = [DELETED_BRANCH_NAME];
-    }
-
-    return commit.setBranches(commitBranches);
-  }
-
-  /**
-   * Get all branches from current commits.
-   */
-  private getBranches(): Map<Commit["hash"], Set<Branch["name"]>> {
-    const result = new Map<Commit["hash"], Set<Branch["name"]>>();
-
-    const queue: Array<Commit["hash"]> = [];
-    const branches = this.refs.getAllNames().filter((name) => name !== "HEAD");
-    branches.forEach((branch) => {
-      const commitHash = this.refs.getCommit(branch);
-      if (commitHash) {
-        queue.push(commitHash);
-      }
-
-      while (queue.length > 0) {
-        const currentHash = queue.pop() as Commit["hash"];
-        const current = this.commits.find(
-          ({ hash }) => hash === currentHash,
-        ) as Commit<TNode> | null;
-        const prevBranches =
-          result.get(currentHash) || new Set<Branch["name"]>();
-        prevBranches.add(branch);
-        result.set(currentHash, prevBranches);
-        if (current && current.parents && current.parents.length > 0) {
-          queue.push(current.parents[0]);
-        }
-      }
-    });
-
-    return result;
   }
 
   /**
